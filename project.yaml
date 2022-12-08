@@ -5,8 +5,12 @@ expectations:
 
 actions:
 
-  generate_study_population:
-    run: cohortextractor:latest generate_cohort --study-definition study_definition
+  generate_dataset_dm017:
+    run: >
+      databuilder:v0 
+        generate-dataset analysis/dataset_definition_dm_reg.py
+        --dummy-tables dummy_data
+        --output output/dataset_dm_reg.csv
     outputs:
       highly_sensitive:
-        cohort: output/input.csv
+        cohort: output/dataset_dm_reg.csv
