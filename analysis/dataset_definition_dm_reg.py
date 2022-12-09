@@ -78,9 +78,4 @@ dm_reg_r1 = (dataset.dm_res_dat < dataset.dm_lat_dat) | (
 dm_reg_r2 = ~(dataset.pat_age < 17)
 
 # Apply business rules to set population
-dataset.set_population(
-    gms_registration_status
-    & dm_reg_r1
-    & dm_reg_r2
-    & has_not_died
-    )
+dataset.set_population(gms_registration_status & dm_reg_r1 & dm_reg_r2 & has_not_died)
