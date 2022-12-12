@@ -1,2 +1,10 @@
 nhsd-primary-care-domain-refsets/dm_cod/20210127
 nhsd-primary-care-domain-refsets/dmres_cod/20200812
+nhsd-primary-care-domain-refsets/mildfrail_cod/20200812
+nhsd-primary-care-domain-refsets/modfrail_cod/20200812
+nhsd-primary-care-domain-refsets/sevfrail_cod/20200812
+nhsd-primary-care-domain-refsets/ifcchbam_cod/20200812
+nhsd-primary-care-domain-refsets/serfruc_cod/20200812
+nhsd-primary-care-domain-refsets/dmmax_cod/20200812
+nhsd-primary-care-domain-refsets/dmpcapu_cod/20200812
+nhsd-primary-care-domain-refsets/dminvite_cod/20200812
