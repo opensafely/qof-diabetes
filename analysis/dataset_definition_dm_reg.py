@@ -1,23 +1,15 @@
 from datetime import date, timedelta
 
 from variable_lib_dm import (
-    get_has_not_died,
-    dataset,
-    get_gms_registration_status,
-    add_diabetes_mellitus_register_variables,
+    DatasetFactory
 )
 
 # Define index date
 # Use Payment Period End Date (PPED) for NHS FY2021/22
 index_date = date(2022, 3, 31)
-
-# Define variables for study population
-has_not_died = get_has_not_died(index_date)
-gms_registration_status = get_gms_registration_status(index_date)
-
-# Create dataset and add diabetes register variables
-dataset = add_diabetes_mellitus_register_variables(dataset, index_date)
-
+factory = DatasetFactory(index_date)
+factory.add_diabetes_mellitus_register_variables()
+dataset = factory.dataset
 ########################################################
 # Define Business Rules for Diabetes register (RM_REG) #
 ########################################################
@@ -37,4 +29,4 @@ dm_reg_r1 = (dataset.dm_res_dat < dataset.dm_lat_dat) | (
 dm_reg_r2 = ~(dataset.pat_age < 17)
 
 # Apply business rules to set population
-dataset.set_population(gms_registration_status & dm_reg_r1 & dm_reg_r2 & has_not_died)
+dataset.set_population(factory.gms_registration_status & dm_reg_r1 & dm_reg_r2 & factory.has_not_died)
