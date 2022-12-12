@@ -25,7 +25,7 @@ dm_res_cod = codelist_from_csv(
 # Cluster name: DMINVITE_COD
 # Description: Invite for diabetes care review codes
 # Refset ID: ^999012371000230109
-dm_res_cod = codelist_from_csv(
+dm_invite_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-dminvite_cod.csv",
     system="snomedct",
     column="code",
