@@ -11,6 +11,54 @@
       "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/dmres_cod/20200812/",
       "downloaded_at": "2022-12-08 15:18:29.658303Z",
       "sha": "57682a6345da78472609f01f1ca065ace27fcb43"
+    },
+    "nhsd-primary-care-domain-refsets-mildfrail_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/mildfrail_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/mildfrail_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:54.530528Z",
+      "sha": "287e3aa3ce94231113cb0c9af1091107dbabe0db"
+    },
+    "nhsd-primary-care-domain-refsets-modfrail_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/modfrail_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/modfrail_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:54.703355Z",
+      "sha": "56e072d745c694138061f9707795c2be449293fb"
+    },
+    "nhsd-primary-care-domain-refsets-sevfrail_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/sevfrail_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/sevfrail_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:54.922065Z",
+      "sha": "2c8598f919253b9bbaed288cb284a2e267d77758"
+    },
+    "nhsd-primary-care-domain-refsets-ifcchbam_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/ifcchbam_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/ifcchbam_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:55.152497Z",
+      "sha": "e21d68e5ab0433ed7ca7106ace258910922cbd14"
+    },
+    "nhsd-primary-care-domain-refsets-serfruc_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/serfruc_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/serfruc_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:55.321838Z",
+      "sha": "f9c65d97af7f94c93c746d1a90db1f234ee440e8"
+    },
+    "nhsd-primary-care-domain-refsets-dmmax_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/dmmax_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/dmmax_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:55.516267Z",
+      "sha": "c406e1f53b9aed26d141732322f34a83487d6e4e"
+    },
+    "nhsd-primary-care-domain-refsets-dmpcapu_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/dmpcapu_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/dmpcapu_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:55.706052Z",
+      "sha": "a53a1cda7d868505dbb369d502dd13ece610f01c"
+    },
+    "nhsd-primary-care-domain-refsets-dminvite_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/dminvite_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/dminvite_cod/20200812/",
+      "downloaded_at": "2022-12-12 11:14:55.914606Z",
+      "sha": "f393aa893e8dcdb547abd1d5e9d46499557eed07"
     }
   }
 }
