@@ -8,9 +8,19 @@ actions:
   generate_dataset_dm017:
     run: >
       databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm_reg.py
+        generate-dataset analysis/dataset_definition_dm017.py
         --dummy-tables dummy_data
-        --output output/dataset_dm_reg.csv
+        --output output/dataset_dm017.csv
     outputs:
       highly_sensitive:
-        cohort: output/dataset_dm_reg.csv
+        cohort: output/dataset_dm017.csv
+
+  generate_dataset_dm020:
+    run: >
+      databuilder:v0 
+        generate-dataset analysis/dataset_definition_dm020.py
+        --dummy-tables dummy_data
+        --output output/dataset_dm020.csv
+    outputs:
+      highly_sensitive:
+        cohort: output/dataset_dm020.csv
