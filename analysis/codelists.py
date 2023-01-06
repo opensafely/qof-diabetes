@@ -16,7 +16,7 @@ dm_cod = codelist_from_csv(
 # Cluster name: DMRES_COD
 # Description: Diabetes resolved codes
 # Refset ID: ^999003371000230102
-dm_res_cod = codelist_from_csv(
+dmres_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmres_cod.csv",
     system="snomedct",
     column="code",
@@ -25,7 +25,7 @@ dm_res_cod = codelist_from_csv(
 # Cluster name: DMINVITE_COD
 # Description: Invite for diabetes care review codes
 # Refset ID: ^999012371000230109
-dm_invite_cod = codelist_from_csv(
+dminvite_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-dminvite_cod.csv",
     system="snomedct",
     column="code",
@@ -34,7 +34,7 @@ dm_invite_cod = codelist_from_csv(
 # Cluster name: DMMAX_COD
 # Description: Codes for maximum tolerated diabetes treatment
 # Refset ID: ^999010651000230109
-dm_max_cod = codelist_from_csv(
+dmmax_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmmax_cod.csv",
     system="snomedct",
     column="code",
@@ -43,7 +43,7 @@ dm_max_cod = codelist_from_csv(
 # Cluster name: DMPCAPU_COD
 # Description: Codes for diabetes quality indicator care unsuitable for patient
 # Refset ID: ^999010731000230107
-dm_pcapu_cod = codelist_from_csv(
+dmpcapu_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmpcapu_cod.csv",
     system="snomedct",
     column="code",
@@ -61,7 +61,7 @@ ifcchbam_cod = codelist_from_csv(
 # Cluster name: MILDFRAIL_COD
 # Description: Mild frailty diagnosis codes
 # Refset ID: ^999013531000230106
-mild_frail_cod = codelist_from_csv(
+mildfrail_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-mildfrail_cod.csv",
     system="snomedct",
     column="code",
@@ -70,7 +70,7 @@ mild_frail_cod = codelist_from_csv(
 # Cluster name: MODFRAIL_COD
 # Description: Moderate frailty diagnosis codes
 # Refset ID: ^999013571000230108
-mod_frail_cod = codelist_from_csv(
+modfrail_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-modfrail_cod.csv",
     system="snomedct",
     column="code",
@@ -79,7 +79,7 @@ mod_frail_cod = codelist_from_csv(
 # Cluster name: SERFRUC_COD
 # Description: Serum fructosamine codes
 # Refset ID: ^999005691000230107
-ser_fruc_cod = codelist_from_csv(
+serfruc_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-serfruc_cod.csv",
     system="snomedct",
     column="code",
@@ -88,8 +88,28 @@ ser_fruc_cod = codelist_from_csv(
 # Cluster name: SEVFRAIL_COD
 # Description: Severe frailty diagnosis codes
 # Refset ID: ^999012131000230109
-sev_frail_cod = codelist_from_csv(
+sevfrail_cod = codelist_from_csv(
     CODELIST_DIR / "nhsd-primary-care-domain-refsets-sevfrail_cod.csv",
+    system="snomedct",
+    column="code",
+)
+
+# Cluster name: BLDTESTDEC_COD
+# Description: Codes indicating the patient has chosen not to receive a blood test
+# Refset ID: ^999011611000230101
+bldtestdec_cod = codelist_from_csv(
+    CODELIST_DIR / "nhsd-primary-care-domain-refsets-bldtestdec_cod.csv",
+    system="snomedct",
+    column="code",
+)
+
+
+# Cluster name: DMPCADEC_COD
+# Description: Date the patient most recently chose not to receive diabetes quality
+# indicator care up to and including the achievement date.
+# Refset ID: ^999010691000230104
+dmpcadec_cod = codelist_from_csv(
+    CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmpcadec_cod.csv",
     system="snomedct",
     column="code",
 )
