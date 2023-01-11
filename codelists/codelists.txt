@@ -8,3 +8,5 @@ nhsd-primary-care-domain-refsets/serfruc_cod/20200812
 nhsd-primary-care-domain-refsets/dmmax_cod/20200812
 nhsd-primary-care-domain-refsets/dmpcapu_cod/20200812
 nhsd-primary-care-domain-refsets/dminvite_cod/20200812
+nhsd-primary-care-domain-refsets/bldtestdec_cod/20200812
+nhsd-primary-care-domain-refsets/dmpcadec_cod/20200812

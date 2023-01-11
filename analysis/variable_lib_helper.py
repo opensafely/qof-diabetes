@@ -48,3 +48,18 @@ def _registrations_overlapping_period(start_date, end_date):
 def practice_registration_as_of(date):
     regs = _registrations_overlapping_period(date, date)
     return regs.sort_by(regs.start_date, regs.end_date).first_for_patient()
+
+
+def combine_codelists(*codelists):
+    codes = set()
+    for codelist in codelists:
+        codes.update(codelist.codes)
+    return Codelist(codes=codes, category_maps={})
+
+
+def get_events_on_or_between(events, codelist, start_date, end_date, where=True):
+    return (
+        events.take(where)
+        .take(events.snomedct_code.is_in(codelist))
+        .take(events.date.is_on_or_between(start_date, end_date))
+    )

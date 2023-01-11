@@ -59,6 +59,18 @@
       "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/dminvite_cod/20200812/",
       "downloaded_at": "2022-12-12 11:14:55.914606Z",
       "sha": "f393aa893e8dcdb547abd1d5e9d46499557eed07"
+    },
+    "nhsd-primary-care-domain-refsets-bldtestdec_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/bldtestdec_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/bldtestdec_cod/20200812/",
+      "downloaded_at": "2023-01-10 13:27:32.538595Z",
+      "sha": "b23ae5b148216b9dc590ed2fde3253e04ffca208"
+    },
+    "nhsd-primary-care-domain-refsets-dmpcadec_cod.csv": {
+      "id": "nhsd-primary-care-domain-refsets/dmpcadec_cod/20200812",
+      "url": "https://codelists.opensafely.org/codelist/nhsd-primary-care-domain-refsets/dmpcadec_cod/20200812/",
+      "downloaded_at": "2023-01-10 13:41:54.909213Z",
+      "sha": "d21f8efbb0cc5214e2dae518e2246c43cdf73e94"
     }
   }
 }
