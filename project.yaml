@@ -24,3 +24,13 @@ actions:
     outputs:
       highly_sensitive:
         cohort: output/dataset_dm020.csv
+
+  generate_dataset_dm021:
+    run: >
+      databuilder:v0 
+        generate-dataset analysis/dataset_definition_dm021.py
+        --dummy-tables dummy_data
+        --output output/dataset_dm021.csv
+    outputs:
+      highly_sensitive:
+        cohort: output/dataset_dm021.csv

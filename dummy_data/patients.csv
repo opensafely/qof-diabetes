@@ -9,3 +9,5 @@ patient_id,date_of_birth,sex,date_of_death
 8,2000-01-01,male,
 9,2021-01-01,male,
 10,1930-01-01,female,2022-01-01
+11,1960-01-01,female,
+
