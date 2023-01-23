@@ -197,7 +197,7 @@ class DmDataset(Dataset):
     # DM020 (DM021) rule 1: Reject patients from the specified population whose
     # latest frailty diagnosis is moderate or severe. Pass all remaining patients
     # to the next rule.
-    def get_dm020_dm021_r1(self):
+    def get_dm020_r1(self):
         return (self.fraillat_dat == self.sevfrail_dat) | (
             self.fraillat_dat == self.modfrail_dat
         )
@@ -207,7 +207,7 @@ class DmDataset(Dataset):
     # - Have their latest IFCC-HbA1c of 58 (75) mmol/mol or less.
     # - Have their latest IFCC-HbA1c reading was recorded in the 12 months leading
     # up to and including the payment period end date.
-    def get_dm020_dm021_r2(self, ifcchba_cutoff_val, index_date):
+    def get_dm020_r2(self, ifcchba_cutoff_val, index_date):
         return (
             self.ifcchba_val.is_not_null()
             & (self.ifcchba_val <= ifcchba_cutoff_val)
@@ -218,7 +218,7 @@ class DmDataset(Dataset):
     # their IFCC-HbA1c recorded during the current service year but did have serum
     # fructosamine recorded during the service year. Pass all remaining patients
     # to the next rule.
-    def get_dm020_dm021_r3(self, index_date):
+    def get_dm020_r3(self, index_date):
         return (
             (
                 self.ifcchba_dat.is_null()
@@ -231,7 +231,7 @@ class DmDataset(Dataset):
     # DM020 (DM021) rule 4: Reject patients passed to this rule who are on maximum
     # tolerated diabetes treatment in the 12 months leading up to and including
     # the payment period end date. Pass all remaining patients to the next rule.
-    def get_dm020_dm021_r4(self, index_date):
+    def get_dm020_r4(self, index_date):
         return self.dmmax_dat.is_not_null() & self.dmmax_dat.is_after(
             index_date - years(1)
         )
@@ -240,7 +240,7 @@ class DmDataset(Dataset):
     # quality indicator care was unsuitable in the 12 months leading up to and
     # including the payment period end date. Pass all remaining patients to the
     # next rule.
-    def get_dm020_dm021_r5(self, index_date):
+    def get_dm020_r5(self, index_date):
         return self.dmpcapu_dat.is_not_null() & self.dmpcapu_dat.is_after(
             index_date - years(1)
         )
@@ -248,7 +248,7 @@ class DmDataset(Dataset):
     # DM020 (DM021) rule 6: Reject patients passed to this rule who chose not to
     # receive a blood test in the 12 months leading up to and including the payment
     # period end date. Pass all remaining patients to the next rule.
-    def get_dm020_dm021_r6(self, index_date):
+    def get_dm020_r6(self, index_date):
         return self.bldtestdec_dat.is_not_null() & self.bldtestdec_dat.is_after(
             index_date - years(1)
         )
@@ -257,7 +257,7 @@ class DmDataset(Dataset):
     # receive diabetes quality indicator care in the 12 months leading up to and
     # including the payment period end date. Pass all remaining patients to the
     # next rule.
-    def get_dm020_dm021_r7(self, index_date):
+    def get_dm020_r7(self, index_date):
         return self.dmpcadec_dat.is_not_null() & self.dmpcadec_dat.is_after(
             index_date - years(1)
         )
@@ -270,7 +270,7 @@ class DmDataset(Dataset):
     # - Received two invitations for diabetes monitoring and had no IFCC-HbA1c
     # recorded during the 12 months leading up to and including the achievement
     # date.
-    def get_dm020_dm021_r8(self, ifcchba_cutoff_val, index_date):
+    def get_dm020_r8(self, ifcchba_cutoff_val, index_date):
         return (
             self.ifcchba_val.is_not_null()
             & (self.ifcchba_val > ifcchba_cutoff_val)
@@ -286,13 +286,13 @@ class DmDataset(Dataset):
     # DM020 (DM021) rule 9: Reject patients passed to this rule whose diabetes
     # diagnosis was in the 9 months leading up to and including the payment period
     # end date.
-    def get_dm020_dm021_r9(self, index_date):
+    def get_dm020_r9(self, index_date):
         return self.dm_dat.is_not_null() & self.dm_dat.is_after(index_date - months(9))
 
     # DM020 (DM021) rule 10: Reject patients passed to this rule who registered
     # with the practice in the 9 months leading up to and including the payment
     # period end date. Select the remaining patients.
-    def get_dm020_dm021_r10(self, index_date):
+    def get_dm020_r10(self, index_date):
         return self.reg_dat.is_not_null() & self.reg_dat.is_after(
             index_date - months(9)
         )
