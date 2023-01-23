@@ -42,11 +42,11 @@ class DmDataset(Dataset):
         bpsys_cutoff_val: float = None,
         bpdia_cutoff_val: float = None,
     ):
+        super().__init__()
         self.index_date = index_date
         self.ifcchba_cutoff_val = ifcchba_cutoff_val
         self.bpsys_cutoff_val = bpsys_cutoff_val
         self.bpdia_cutoff_val = bpdia_cutoff_val
-        super().__init__()
 
     # Define all variables needed for the diabetes mellitus (dm)
     def add_diabetes_mellitus_variables(self):
