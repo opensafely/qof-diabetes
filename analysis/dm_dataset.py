@@ -1,3 +1,5 @@
+from datetime import date
+
 from databuilder.ehrql import (
     Dataset,
     years,
@@ -17,38 +19,12 @@ from variable_lib_helper import (
     first_matching_event,
     last_matching_event,
     age_as_of,
-    died_as_of,
     practice_registration_as_of,
     combine_codelists,
     get_events_on_or_between,
 )
 
 import codelists
-
-
-# Define clinical events prior to index_date
-def get_prior_events(index_date):
-    return clinical_events.take(clinical_events.date.is_on_or_before(index_date))
-
-
-# Define variable indicating whether a patient has died
-# Note: Although this is not in the business rules I'm including this as an
-# additional check
-def get_has_not_died(index_date):
-    return ~died_as_of(index_date)
-
-
-# GMS reg status: Select patients who meet either of the criteria below:
-# Registered for GMS prior to or on the achievement date and did not
-# subsequently deregister from GMS (currently registered for GMS).
-# Registered for GMS prior to or on the achievement date and subsequently
-# deregistered from GMS after the achievement date (previously registered for
-# GMS). (i.e. patients who were registered for GMS on the achievement date).
-# TODO Note that this currently does not follow the qualifying criteria in the
-# business rules.
-def get_gms_registration_status(index_date):
-    practice_reg = practice_registration_as_of(index_date)
-    return practice_reg.exists_for_patient()
 
 
 ###############################################################################
@@ -58,19 +34,36 @@ def get_gms_registration_status(index_date):
 
 class DmDataset(Dataset):
 
+    # Initialization method
+    def __init__(
+        self,
+        index_date: date,
+        ifcchba_cutoff_val: float = None,
+        bpsys_cutoff_val: float = None,
+        bpdia_cutoff_val: float = None,
+    ):
+        self.index_date = index_date
+        self.ifcchba_cutoff_val = ifcchba_cutoff_val
+        self.bpsys_cutoff_val = bpsys_cutoff_val
+        self.bpdia_cutoff_val = bpdia_cutoff_val
+        super().__init__()
+
     # Define all variables needed for the diabetes mellitus (dm)
-    def add_diabetes_mellitus_variables(self, index_date):
+    def add_diabetes_mellitus_variables(self):
+
         # Extract prior events for further use in variable definitions below
-        prior_events = get_prior_events(index_date)
+        prior_events = clinical_events.take(
+            clinical_events.date.is_on_or_before(self.index_date)
+        )
 
         # Field number: 2
         # REG_DAT: The most recent date that the patient registered for GMS, where
         # this registration occurred on or before the achievement date.
-        self.reg_dat = practice_registration_as_of(index_date).start_date
+        self.reg_dat = practice_registration_as_of(self.index_date).start_date
 
         # Field number: 4
         # PAT_AGE: The age of the patient in full years at the achievement date.
-        self.pat_age = age_as_of(index_date)
+        self.pat_age = age_as_of(self.index_date)
 
         # Field number: 5
         # DM_DAT: Date of the first diabetes diagnosis up to and including the
@@ -124,7 +117,10 @@ class DmDataset(Dataset):
         # or after the quality service start date and up to and including the
         # achievement date.
         dminvite_events = get_events_on_or_between(
-            clinical_events, codelists.dminvite_cod, index_date - years(1), index_date
+            clinical_events,
+            codelists.dminvite_cod,
+            self.index_date - years(1),
+            self.index_date,
         )
         self.dminvite1_dat = (
             dminvite_events.sort_by(dminvite_events.date).first_for_patient().date
@@ -176,6 +172,19 @@ class DmDataset(Dataset):
         )
         self.fraillat_dat = last_matching_event(prior_events, mildmodsev_frail_cod).date
 
+    # GMS reg status: Select patients who meet either of the criteria below:
+    # Registered for GMS prior to or on the achievement date and did not
+    # subsequently deregister from GMS (currently registered for GMS).
+    # Registered for GMS prior to or on the achievement date and subsequently
+    # deregistered from GMS after the achievement date (previously registered for
+    # GMS). (i.e. patients who were registered for GMS on the achievement date).
+    # TODO Note that this currently does not follow the qualifying criteria in
+    # the business rules for get_gms_registration_status. We do not check
+    # whether a practice has signed up for GMS. This is reflected in the
+    # current function name get_registration_status.
+    def get_registration_status(self):
+        return practice_registration_as_of(self.index_date).exists_for_patient()
+
     # DM REGISTER (DM_REG)
     # DM_REG rule 1:
     # Pass to the next rule all patients from the specified population who meet
@@ -207,59 +216,61 @@ class DmDataset(Dataset):
     # - Have their latest IFCC-HbA1c of 58 (75) mmol/mol or less.
     # - Have their latest IFCC-HbA1c reading was recorded in the 12 months leading
     # up to and including the payment period end date.
-    def get_dm020_r2(self, ifcchba_cutoff_val, index_date):
+    def get_dm020_r2(self):
         return (
             self.ifcchba_val.is_not_null()
-            & (self.ifcchba_val <= ifcchba_cutoff_val)
-            & self.ifcchba_dat.is_on_or_between(index_date - years(1), index_date)
+            & (self.ifcchba_val <= self.ifcchba_cutoff_val)
+            & self.ifcchba_dat.is_on_or_between(
+                self.index_date - years(1), self.index_date
+            )
         )
 
     # DM020 (DM021) rule 3: Reject patients passed to this rule who did not have
     # their IFCC-HbA1c recorded during the current service year but did have serum
     # fructosamine recorded during the service year. Pass all remaining patients
     # to the next rule.
-    def get_dm020_r3(self, index_date):
+    def get_dm020_r3(self):
         return (
             (
                 self.ifcchba_dat.is_null()
-                | self.ifcchba_dat.is_on_or_before(index_date - years(1))
+                | self.ifcchba_dat.is_on_or_before(self.index_date - years(1))
             )
             & self.serfruc_dat.is_not_null()
-            & self.serfruc_dat.is_after(index_date - years(1))
+            & self.serfruc_dat.is_after(self.index_date - years(1))
         )
 
     # DM020 (DM021) rule 4: Reject patients passed to this rule who are on maximum
     # tolerated diabetes treatment in the 12 months leading up to and including
     # the payment period end date. Pass all remaining patients to the next rule.
-    def get_dm020_r4(self, index_date):
+    def get_dm020_r4(self):
         return self.dmmax_dat.is_not_null() & self.dmmax_dat.is_after(
-            index_date - years(1)
+            self.index_date - years(1)
         )
 
     # DM020 (DM021) rule 5: Reject patients passed to this rule for whom diabetes
     # quality indicator care was unsuitable in the 12 months leading up to and
     # including the payment period end date. Pass all remaining patients to the
     # next rule.
-    def get_dm020_r5(self, index_date):
+    def get_dm020_r5(self):
         return self.dmpcapu_dat.is_not_null() & self.dmpcapu_dat.is_after(
-            index_date - years(1)
+            self.index_date - years(1)
         )
 
     # DM020 (DM021) rule 6: Reject patients passed to this rule who chose not to
     # receive a blood test in the 12 months leading up to and including the payment
     # period end date. Pass all remaining patients to the next rule.
-    def get_dm020_r6(self, index_date):
+    def get_dm020_r6(self):
         return self.bldtestdec_dat.is_not_null() & self.bldtestdec_dat.is_after(
-            index_date - years(1)
+            self.index_date - years(1)
         )
 
     # DM020 (DM021) rule 7: Reject patients passed to this rule who chose not to
     # receive diabetes quality indicator care in the 12 months leading up to and
     # including the payment period end date. Pass all remaining patients to the
     # next rule.
-    def get_dm020_r7(self, index_date):
+    def get_dm020_r7(self):
         return self.dmpcadec_dat.is_not_null() & self.dmpcadec_dat.is_after(
-            index_date - years(1)
+            self.index_date - years(1)
         )
 
     # DM020 (DM021) rule 8: Reject patients passed to this rule who meet either of
@@ -270,29 +281,33 @@ class DmDataset(Dataset):
     # - Received two invitations for diabetes monitoring and had no IFCC-HbA1c
     # recorded during the 12 months leading up to and including the achievement
     # date.
-    def get_dm020_r8(self, ifcchba_cutoff_val, index_date):
+    def get_dm020_r8(self):
         return (
             self.ifcchba_val.is_not_null()
-            & (self.ifcchba_val > ifcchba_cutoff_val)
+            & (self.ifcchba_val > self.ifcchba_cutoff_val)
             & self.ifcchba_dat.is_not_null()
-            & self.ifcchba_dat.is_on_or_between(index_date - years(1), index_date)
+            & self.ifcchba_dat.is_on_or_between(
+                self.index_date - years(1), self.index_date
+            )
             & (self.dminvite1_dat > self.ifcchba_dat)
             & self.dminvite2_dat.is_not_null()
         ) | (
             (self.dminvite2_dat.is_not_null() & self.ifcchba_dat.is_null())
-            | self.ifcchba_dat.is_on_or_before(index_date - years(1))
+            | self.ifcchba_dat.is_on_or_before(self.index_date - years(1))
         )
 
     # DM020 (DM021) rule 9: Reject patients passed to this rule whose diabetes
     # diagnosis was in the 9 months leading up to and including the payment period
     # end date.
-    def get_dm020_r9(self, index_date):
-        return self.dm_dat.is_not_null() & self.dm_dat.is_after(index_date - months(9))
+    def get_dm020_r9(self):
+        return self.dm_dat.is_not_null() & self.dm_dat.is_after(
+            self.index_date - months(9)
+        )
 
     # DM020 (DM021) rule 10: Reject patients passed to this rule who registered
     # with the practice in the 9 months leading up to and including the payment
     # period end date. Select the remaining patients.
-    def get_dm020_r10(self, index_date):
+    def get_dm020_r10(self):
         return self.reg_dat.is_not_null() & self.reg_dat.is_after(
-            index_date - months(9)
+            self.index_date - months(9)
         )
