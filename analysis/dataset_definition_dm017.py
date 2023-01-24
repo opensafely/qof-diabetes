@@ -1,21 +1,28 @@
 from datetime import date
 
-from dm_dataset import DmDataset
+from dm_dataset import (
+    make_dm_dataset,
+    get_registration_status,
+    get_dm_reg_r1,
+    get_dm_reg_r2,
+)
 
-# Define index date as `date(2022, 3, 31)`
-# Use Payment Period End Date (PPED) for NHS FY2021/22
-# Create dataset and add diabetes mellitus variables
-dataset = DmDataset(index_date=date(2022, 3, 31))
-dataset.add_diabetes_mellitus_variables()
+# Define index date
+index_date = date(2022, 3, 31)
 
-# Diabetes register (DM_REG) rule 1:
-dataset.dm_reg_r1 = dataset.get_dm_reg_r1()
+# Instantiate dataset and define clinical variables
+dataset = make_dm_dataset(index_date=index_date)
 
-# Diabetes register (DM_REG) rule 2:
-dataset.dm_reg_r2 = dataset.get_dm_reg_r2()
+# Define registration status
+# NOTE: this is not identical to GMS registration status
+has_registration = get_registration_status()
+
+# Define diabetes register (DM_REG) rules:
+dataset.dm_reg_r1 = get_dm_reg_r1(dataset)
+dataset.dm_reg_r2 = get_dm_reg_r2(dataset)
 
 # Define select rule 2
-dm_reg_select_r2 = dataset.dm_reg_r1 & ~dataset.dm_reg_r2
+has_dm_reg_select_r2 = dataset.dm_reg_r1 & ~dataset.dm_reg_r2
 
 # Apply business rules to set population
-dataset.set_population(dm_reg_select_r2)
+dataset.set_population(has_registration & has_dm_reg_select_r2)
