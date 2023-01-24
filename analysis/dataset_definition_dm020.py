@@ -26,7 +26,7 @@ dataset = make_dm_dataset(index_date=index_date)
 
 # Define registration status
 # NOTE: this is not identical to GMS registration status
-has_registration = get_registration_status()
+has_registration = get_registration_status(dataset, index_date)
 
 # Define diabetes register (DM_REG) rules:
 dataset.dm_reg_r1 = get_dm_reg_r1(dataset)
