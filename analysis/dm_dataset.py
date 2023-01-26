@@ -291,3 +291,16 @@ def get_dm020_r10(dataset, index_date):
     return dataset.reg_dat.is_not_null() & dataset.reg_dat.is_after(
         index_date - months(9)
     )
+
+
+# Copy identical rules
+get_dm021_r1 = get_dm020_r1
+get_dm021_r2 = get_dm020_r2
+get_dm021_r3 = get_dm020_r3
+get_dm021_r4 = get_dm020_r4
+get_dm021_r5 = get_dm020_r5
+get_dm021_r6 = get_dm020_r6
+get_dm021_r7 = get_dm020_r7
+get_dm021_r8 = get_dm020_r8
+get_dm021_r9 = get_dm020_r9
+get_dm021_r10 = get_dm020_r10
