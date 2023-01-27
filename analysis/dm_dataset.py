@@ -28,65 +28,74 @@ import codelists
 
 
 # Define a dataset including all variables needed for the diabetes mellitus (dm)
-def make_dm_dataset(
-    index_date: date,
-    ifcchba_cutoff_val: float = None,
-    bpsys_cutoff_val: float = None,
-    bpdia_cutoff_val: float = None,
-):
+def make_dm_dataset(index_date: date):
+    # Instantiate dataset
     dataset = Dataset()
+
     # Extract prior events for further use in variable definitions below
     prior_events = clinical_events.take(
         clinical_events.date.is_on_or_before(index_date)
     )
+
     # Field number: 2
     # REG_DAT: The most recent date that the patient registered for GMS, where
     # this registration occurred on or before the achievement date.
     dataset.reg_dat = practice_registration_as_of(index_date).start_date
+
     # Field number: 3
     # REG_DAT: The first occurrence of the patient deregistering from GMS
     # following the latest GMS registration.
     dataset.dereg_dat = practice_registration_as_of(dataset.reg_dat).end_date
+
     # Field number: 4
     # PAT_AGE: The age of the patient in full years at the achievement date.
     dataset.pat_age = age_as_of(index_date)
+
     # Field number: 5
     # DM_DAT: Date of the first diabetes diagnosis up to and including the
     # achievement date.
     dataset.dm_dat = first_matching_event(prior_events, codelists.dm_cod).date
+
     # Field number: 6
     # DMLAT_DAT: Date of the most recent diabetes diagnosis up to and
     # including the achievement date.
     dataset.dmlat_dat = last_matching_event(prior_events, codelists.dm_cod).date
+
     # Field number: 7
     # DMRES_DAT: Date of the most recent diabetes diagnosis resolved code
     # recorded after the most recent diabetes diagnosis and up to and
     # including the achievement date.
     dataset.dmres_dat = last_matching_event(prior_events, codelists.dmres_cod).date
+
     # Field number: 8
     # DMMAX_DAT: Date of the most recent maximum tolerated diabetes treatment
     # code up to and including the achievement date.
     dataset.dmmax_dat = last_matching_event(prior_events, codelists.dmmax_cod).date
+
     # Field number: 9
     # IFCCHBA_DAT: Date of the most recent IFCC HbA1c monitoring range code up
     # to and including the achievement date.
     dataset.ifcchba_dat = last_matching_event(prior_events, codelists.ifcchbam_cod).date
+
     # Field number: 10
     # IFCCHBA_VAL: The IFCC HbA1c value associated with the most recent IFCC
     # HbA1c monitoring range recording.
     dataset.ifcchba_val = last_matching_event(
         prior_events, codelists.ifcchbam_cod
     ).numeric_value
+
     # Field number: 11
     # SERFRUC_DAT: Date of the most recent serum fructosamine code recorded up
     # to and including the achievement date.
     dataset.serfruc_dat = last_matching_event(prior_events, codelists.serfruc_cod).date
+
     # Field number: 35
     # BLDTESTDEC_DAT: Date the patient most recently chose not to receive a
     # blood test up to and including the achievement date.
     dataset.bldtestdec_dat = last_matching_event(
         prior_events, codelists.bldtestdec_cod
     ).date
+
     # Field number: 43
     # DMINVITE1_DAT: Date of the earliest invitation for a diabetes review on
     # or after the quality service start date and up to and including the
@@ -100,6 +109,7 @@ def make_dm_dataset(
     dataset.dminvite1_dat = (
         dminvite_events.sort_by(dminvite_events.date).first_for_patient().date
     )
+
     # Field number: 44
     # DMINVITE2_DAT: Date of the earliest invitation for a diabetes review
     # recorded at least 7 days after the first invitation and up to and
@@ -110,29 +120,34 @@ def make_dm_dataset(
     dataset.dminvite2_dat = (
         dminvite2_events.sort_by(dminvite2_events.date).first_for_patient().date
     )
+
     # Field number: 45
     # DMPCADEC_DAT: Date the patient most recently chose not to receive
     # diabetes quality indicator care up to and including the achievement date.
     dataset.dmpcadec_dat = last_matching_event(
         prior_events, codelists.dmpcadec_cod
     ).date
+
     # Field number: 46
     # DMPCAPU_DAT: Most recent date that diabetes quality indicator care was
     # deemed unsuitable for the patient up to and including the achievement
     # date.
     dataset.dmpcapu_dat = last_matching_event(prior_events, codelists.dmpcapu_cod).date
+
     # Field number: 55
     # MODFRAIL_DAT: Date of the most recent moderate frailty diagnosis up to and
     # including the achievement date.
     dataset.modfrail_dat = last_matching_event(
         prior_events, codelists.modfrail_cod
     ).date
+
     # Field number: 59
     # SEVFRAIL_DAT: Date of the most recent severe frailty diagnosis up to and
     # including the achievement date.
     dataset.sevfrail_dat = last_matching_event(
         prior_events, codelists.sevfrail_cod
     ).date
+
     # Field number: 66
     # FRAILLAT_DAT: The date of the latest frailty diagnosis up to and
     # including the achievement date.
@@ -154,7 +169,7 @@ def make_dm_dataset(
 # the business rules for get_gms_registration_status. We do not check
 # whether a practice has signed up for GMS. This is reflected in the
 # current function name get_registration_status.
-def get_registration_status(dataset, index_date):
+def get_registration_status(index_date):
     return practice_registration_as_of(index_date).exists_for_patient()
 
 
