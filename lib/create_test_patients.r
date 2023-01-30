@@ -168,6 +168,4 @@ practice_registrations <- tibble::tribble(
   )
 
 readr::write_csv(practice_registrations,here::here("dummy_data", "practice_registrations.csv"), na = "")
-a=1+1
-
 # nolint end
