@@ -1,15 +1,11 @@
-from pathlib import Path
+from databuilder.ehrql import codelist_from_csv
 
-from databuilder.codes import codelist_from_csv
-
-CODELIST_DIR = Path("codelists")
 
 # Cluster name: DM_COD
 # Description: Diabetes mellitus codes
 # Refset ID: ^999004691000230108
 dm_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-dm_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-dm_cod.csv",
     column="code",
 )
 
@@ -17,8 +13,7 @@ dm_cod = codelist_from_csv(
 # Description: Diabetes resolved codes
 # Refset ID: ^999003371000230102
 dmres_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmres_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-dmres_cod.csv",
     column="code",
 )
 
@@ -26,8 +21,7 @@ dmres_cod = codelist_from_csv(
 # Description: Invite for diabetes care review codes
 # Refset ID: ^999012371000230109
 dminvite_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-dminvite_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-dminvite_cod.csv",
     column="code",
 )
 
@@ -35,8 +29,7 @@ dminvite_cod = codelist_from_csv(
 # Description: Codes for maximum tolerated diabetes treatment
 # Refset ID: ^999010651000230109
 dmmax_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmmax_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-dmmax_cod.csv",
     column="code",
 )
 
@@ -44,8 +37,7 @@ dmmax_cod = codelist_from_csv(
 # Description: Codes for diabetes quality indicator care unsuitable for patient
 # Refset ID: ^999010731000230107
 dmpcapu_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmpcapu_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-dmpcapu_cod.csv",
     column="code",
 )
 
@@ -53,8 +45,7 @@ dmpcapu_cod = codelist_from_csv(
 # Description: IFCC HbA1c monitoring range codes
 # Refset ID: ^999003251000230103
 ifcchbam_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-ifcchbam_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-ifcchbam_cod.csv",
     column="code",
 )
 
@@ -62,8 +53,7 @@ ifcchbam_cod = codelist_from_csv(
 # Description: Mild frailty diagnosis codes
 # Refset ID: ^999013531000230106
 mildfrail_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-mildfrail_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-mildfrail_cod.csv",
     column="code",
 )
 
@@ -71,8 +61,7 @@ mildfrail_cod = codelist_from_csv(
 # Description: Moderate frailty diagnosis codes
 # Refset ID: ^999013571000230108
 modfrail_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-modfrail_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-modfrail_cod.csv",
     column="code",
 )
 
@@ -80,8 +69,7 @@ modfrail_cod = codelist_from_csv(
 # Description: Serum fructosamine codes
 # Refset ID: ^999005691000230107
 serfruc_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-serfruc_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-serfruc_cod.csv",
     column="code",
 )
 
@@ -89,8 +77,7 @@ serfruc_cod = codelist_from_csv(
 # Description: Severe frailty diagnosis codes
 # Refset ID: ^999012131000230109
 sevfrail_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-sevfrail_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-sevfrail_cod.csv",
     column="code",
 )
 
@@ -98,8 +85,7 @@ sevfrail_cod = codelist_from_csv(
 # Description: Codes indicating the patient has chosen not to receive a blood test
 # Refset ID: ^999011611000230101
 bldtestdec_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-bldtestdec_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-bldtestdec_cod.csv",
     column="code",
 )
 
@@ -109,7 +95,6 @@ bldtestdec_cod = codelist_from_csv(
 # indicator care up to and including the achievement date.
 # Refset ID: ^999010691000230104
 dmpcadec_cod = codelist_from_csv(
-    CODELIST_DIR / "nhsd-primary-care-domain-refsets-dmpcadec_cod.csv",
-    system="snomedct",
+    "codelists/nhsd-primary-care-domain-refsets-dmpcadec_cod.csv",
     column="code",
 )
