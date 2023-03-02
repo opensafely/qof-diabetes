@@ -20,7 +20,6 @@ from variable_lib_helper import (
     last_matching_event,
     age_as_of,
     practice_registration_as_of,
-    combine_codelists,
     get_events_on_or_between,
 )
 
@@ -151,8 +150,8 @@ def make_dm_dataset(index_date: date):
     # Field number: 66
     # FRAILLAT_DAT: The date of the latest frailty diagnosis up to and
     # including the achievement date.
-    mildmodsev_frail_cod = combine_codelists(
-        codelists.mildfrail_cod, codelists.modfrail_cod, codelists.sevfrail_cod
+    mildmodsev_frail_cod = (
+        codelists.mildfrail_cod + codelists.modfrail_cod + codelists.sevfrail_cod
     )
     dataset.fraillat_dat = last_matching_event(prior_events, mildmodsev_frail_cod).date
 
