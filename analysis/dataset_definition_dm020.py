@@ -1,4 +1,5 @@
-from datetime import date
+from argparse import ArgumentParser
+from datetime import datetime
 
 from dm_dataset import (
     make_dm_dataset,
@@ -18,8 +19,12 @@ from dm_dataset import (
 )
 
 # Define index date and cutoff value for clinical rules
-index_date = date(2022, 3, 31)
-ifcchba_cutoff_val = 58.0
+parser = ArgumentParser()
+parser.add_argument("--index-date", type=str)
+parser.add_argument("--ifcchba-cutoff-val", type=int)
+args = parser.parse_args()
+index_date = datetime.strptime(args.index_date, '%Y-%m-%d').date()
+ifcchba_cutoff_val = args.ifcchba_cutoff_val
 
 # Instantiate dataset and define clinical variables
 dataset = make_dm_dataset(index_date=index_date)

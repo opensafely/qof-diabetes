@@ -1,4 +1,5 @@
-from datetime import date
+from argparse import ArgumentParser
+from datetime import datetime
 
 from dm_dataset import (
     make_dm_dataset,
@@ -7,8 +8,10 @@ from dm_dataset import (
     get_dm_reg_r2,
 )
 
-# Define index date
-index_date = date(2022, 3, 31)
+parser = ArgumentParser()
+parser.add_argument("--index-date", type=str)
+args = parser.parse_args()
+index_date = datetime.strptime(args.index_date, '%Y-%m-%d').date()
 
 # Instantiate dataset and define clinical variables
 dataset = make_dm_dataset(index_date=index_date)
