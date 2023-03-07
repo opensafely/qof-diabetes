@@ -160,3 +160,25 @@ actions:
     outputs:
       highly_sensitive:
         cohort: output/individual_datasets/dataset_dm021_2022-07-31.csv
+
+# Join datasets
+  join_dm_datasets:
+    run: >
+      r:latest analysis/join_datasets.R
+      --output output/joined_datasets/dm_datasets.csv
+    needs:
+      - generate_dataset_dm017_2021-07-31
+      - generate_dataset_dm017_2021-12-01
+      - generate_dataset_dm017_2022-03-31
+      - generate_dataset_dm017_2022-07-31
+      - generate_dataset_dm020_2021-07-31
+      - generate_dataset_dm020_2021-12-01
+      - generate_dataset_dm020_2022-03-31
+      - generate_dataset_dm020_2022-07-31
+      - generate_dataset_dm021_2021-07-31
+      - generate_dataset_dm021_2021-12-01
+      - generate_dataset_dm021_2022-03-31
+      - generate_dataset_dm021_2022-07-31
+    outputs:
+      highly_sensitive:
+        joined_cohort: output/joined_datasets/dm_datasets.csv
