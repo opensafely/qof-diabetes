@@ -7,156 +7,44 @@ actions:
 
 # Generate datasets
 ## DM017
-  generate_dataset_dm017_2021-07-31:
+  generate_dataset_dm017:
     run: >
       databuilder:v0 
         generate-dataset analysis/dataset_definition_dm017.py
         --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm017_2021-07-31.csv
-        -- 
-        --index-date "2021-07-31"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm017_2021-07-31.csv
-
-  generate_dataset_dm017_2021-12-01:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm017.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm017_2021-12-01.csv
-        -- 
-        --index-date "2021-12-01"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm017_2021-12-01.csv
-
-  generate_dataset_dm017_2022-03-31:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm017.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm017_2022-03-31.csv
+        --output output/individual_datasets/dataset_dm017.csv
         -- 
         --index-date "2022-03-31"
     outputs:
       highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm017_2022-03-31.csv
-
-  generate_dataset_dm017_2022-07-31:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm017.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm017_2022-07-31.csv
-        -- 
-        --index-date "2022-07-31"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm017_2022-07-31.csv
+        cohort: output/individual_datasets/dataset_dm017.csv
 
 ## DM020
-  generate_dataset_dm020_2021-07-31:
+  generate_dataset_dm020:
     run: >
       databuilder:v0 
         generate-dataset analysis/dataset_definition_dm020.py
         --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm020_2021-07-31.csv
-        -- 
-        --index-date "2021-07-31"
-        --ifcchba-cutoff-val "58"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm020_2021-07-31.csv
-
-  generate_dataset_dm020_2021-12-01:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm020.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm020_2021-12-01.csv
-        -- 
-        --index-date "2021-12-01"
-        --ifcchba-cutoff-val "58"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm020_2021-12-01.csv
-
-  generate_dataset_dm020_2022-03-31:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm020.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm020_2022-03-31.csv
+        --output output/individual_datasets/dataset_dm020.csv
         -- 
         --index-date "2022-03-31"
         --ifcchba-cutoff-val "58"
     outputs:
       highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm020_2022-03-31.csv
+        cohort: output/individual_datasets/dataset_dm020.csv
 
-  generate_dataset_dm020_2022-07-31:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm020.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm020_2022-07-31.csv
-        -- 
-        --index-date "2022-07-31"
-        --ifcchba-cutoff-val "58"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm020_2022-07-31.csv
 
 ## DM021
-  generate_dataset_dm021_2021-07-31:
+  generate_dataset_dm021:
     run: >
       databuilder:v0 
         generate-dataset analysis/dataset_definition_dm021.py
         --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm021_2021-07-31.csv
-        -- 
-        --index-date "2021-07-31"
-        --ifcchba-cutoff-val "75"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm021_2021-07-31.csv
-
-  generate_dataset_dm021_2021-12-01:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm021.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm021_2021-12-01.csv
-        -- 
-        --index-date "2021-12-01"
-        --ifcchba-cutoff-val "75"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm021_2021-12-01.csv
-
-  generate_dataset_dm021_2022-03-31:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm021.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm021_2022-03-31.csv
+        --output output/individual_datasets/dataset_dm021.csv
         -- 
         --index-date "2022-03-31"
         --ifcchba-cutoff-val "75"
     outputs:
       highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm021_2022-03-31.csv
+        cohort: output/individual_datasets/dataset_dm021.csv
 
-  generate_dataset_dm021_2022-07-31:
-    run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm021.py
-        --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm021_2022-07-31.csv
-        -- 
-        --index-date "2022-07-31"
-        --ifcchba-cutoff-val "75"
-    outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm021_2022-07-31.csv

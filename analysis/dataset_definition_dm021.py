@@ -23,7 +23,7 @@ parser = ArgumentParser()
 parser.add_argument("--index-date", type=str)
 parser.add_argument("--ifcchba-cutoff-val", type=int)
 args = parser.parse_args()
-index_date = datetime.strptime(args.index_date, '%Y-%m-%d').date()
+index_date = datetime.strptime(args.index_date, "%Y-%m-%d").date()
 ifcchba_cutoff_val = args.ifcchba_cutoff_val
 
 # Instantiate dataset and define clinical variables
@@ -70,7 +70,7 @@ has_dm021_select_r10 = (
 )
 
 # Apply business rules to set population
-dataset.set_population(
+dataset.define_population(
     # Registration status
     has_registration
     # Business rules for DM_REG
