@@ -5,32 +5,46 @@ expectations:
 
 actions:
 
+# Generate datasets
+## DM017
   generate_dataset_dm017:
     run: >
       databuilder:v0 
         generate-dataset analysis/dataset_definition_dm017.py
         --dummy-tables dummy_data
-        --output output/dataset_dm017.csv
+        --output output/individual_datasets/dataset_dm017.csv
+        -- 
+        --index-date "2022-03-31"
     outputs:
       highly_sensitive:
-        cohort: output/dataset_dm017.csv
+        cohort: output/individual_datasets/dataset_dm017.csv
 
+## DM020
   generate_dataset_dm020:
     run: >
       databuilder:v0 
         generate-dataset analysis/dataset_definition_dm020.py
         --dummy-tables dummy_data
-        --output output/dataset_dm020.csv
+        --output output/individual_datasets/dataset_dm020.csv
+        -- 
+        --index-date "2022-03-31"
+        --ifcchba-cutoff-val "58"
     outputs:
       highly_sensitive:
-        cohort: output/dataset_dm020.csv
+        cohort: output/individual_datasets/dataset_dm020.csv
 
+
+## DM021
   generate_dataset_dm021:
     run: >
       databuilder:v0 
         generate-dataset analysis/dataset_definition_dm021.py
         --dummy-tables dummy_data
-        --output output/dataset_dm021.csv
+        --output output/individual_datasets/dataset_dm021.csv
+        -- 
+        --index-date "2022-03-31"
+        --ifcchba-cutoff-val "75"
     outputs:
       highly_sensitive:
-        cohort: output/dataset_dm021.csv
+        cohort: output/individual_datasets/dataset_dm021.csv
+
