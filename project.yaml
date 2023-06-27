@@ -1,7 +1,7 @@
 version: '3.0'
 
 expectations:
-  population_size: 1000
+  population_size: 100
 
 actions:
 
@@ -9,42 +9,38 @@ actions:
 ## DM017
   generate_dataset_dm017:
     run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm017.py
+      ehrql:v0 
+        generate-measures analysis/dataset_definition_dm017.py
         --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm017.csv
-        -- 
-        --index-date "2022-03-31"
+        --output output/measures/dataset_dm017.csv
     outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm017.csv
+      moderately_sensitive:
+        cohort: output/measures/dataset_dm017.csv
 
 ## DM020
   generate_dataset_dm020:
     run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm020.py
+      ehrql:v0 
+        generate-measures analysis/dataset_definition_dm020.py
         --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm020.csv
+        --output output/measures/dataset_dm020.csv
         -- 
-        --index-date "2022-03-31"
         --ifcchba-cutoff-val "58"
     outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm020.csv
+      moderately_sensitive:
+        cohort: output/measures/dataset_dm020.csv
 
 
 ## DM021
   generate_dataset_dm021:
     run: >
-      databuilder:v0 
-        generate-dataset analysis/dataset_definition_dm021.py
+      ehrql:v0 
+        generate-measures analysis/dataset_definition_dm021.py
         --dummy-tables dummy_data
-        --output output/individual_datasets/dataset_dm021.csv
+        --output output/measures/dataset_dm021.csv
         -- 
-        --index-date "2022-03-31"
         --ifcchba-cutoff-val "75"
     outputs:
-      highly_sensitive:
-        cohort: output/individual_datasets/dataset_dm021.csv
+      moderately_sensitive:
+        cohort: output/measures/dataset_dm021.csv
 

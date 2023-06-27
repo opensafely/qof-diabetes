@@ -1,5 +1,5 @@
-from argparse import ArgumentParser
-import datetime
+from ehrql import INTERVAL, Measures, months
+from ehrql.tables.beta.tpp import patients
 
 from dm_dataset import (
     make_dm_dataset,
@@ -8,11 +8,8 @@ from dm_dataset import (
     get_dm_reg_r2,
 )
 
-parser = ArgumentParser()
-parser.add_argument("--index-date", type=datetime.date.fromisoformat)
+index_date = INTERVAL.start_date
 
-args = parser.parse_args()
-index_date = args.index_date
 # Instantiate dataset and define clinical variables
 dataset = make_dm_dataset(index_date=index_date)
 
@@ -28,4 +25,15 @@ dataset.dm_reg_r2 = get_dm_reg_r2(dataset)
 has_dm_reg_select_r2 = dataset.dm_reg_r1 & ~dataset.dm_reg_r2
 
 # Apply business rules to define population
-dataset.define_population(has_registration & has_dm_reg_select_r2)
+# dataset.define_population(has_registration & has_dm_reg_select_r2)
+
+# Define measures
+measures = Measures()
+
+measures.define_measure(
+    name="dm017",
+    numerator=has_dm_reg_select_r2,
+    denominator=has_registration,
+    group_by={"sex": patients.sex},
+    intervals=months(3).starting_on("2022-03-01"),
+)
