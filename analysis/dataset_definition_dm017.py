@@ -24,16 +24,20 @@ dataset.dm_reg_r2 = get_dm_reg_r2(dataset)
 # Define select rule 2
 has_dm_reg_select_r2 = dataset.dm_reg_r1 & ~dataset.dm_reg_r2
 
-# Apply business rules to define population
-# dataset.define_population(has_registration & has_dm_reg_select_r2)
+# Define DM017 numerator and denominator
+dm017_numerator = has_registration
+dm017_denominator = has_dm_reg_select_r2
+
+# Define variable with DM register population
+dataset.dm_reg_population = has_registration & has_dm_reg_select_r2
 
 # Define measures
 measures = Measures()
 
 measures.define_measure(
     name="dm017",
-    numerator=has_dm_reg_select_r2,
-    denominator=has_registration,
+    numerator=dm017_numerator,
+    denominator=dm017_denominator,
     group_by={"sex": patients.sex},
     intervals=months(3).starting_on("2022-03-01"),
 )

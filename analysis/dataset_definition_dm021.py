@@ -71,24 +71,27 @@ has_dm021_select_r10 = (
     & ~dataset.dm021_r10
 )
 
-# Apply business rules to define population
-# dataset.define_population(
-#     # Registration status
-#     has_registration
-#     # Business rules for DM_REG
-#     & has_dm_reg_select_r2
-#     # Business rules for DM021
-#     & (has_dm021_select_r2 | has_dm021_select_r10)
-# )
+# Define DM021 numerator and denominator
+dm021_numerator = has_dm021_select_r2
+dm021_denominator = (has_dm021_select_r2 | has_dm021_select_r10)
 
+# Define dataset variable with DM021 population
+dataset.dm021_population = (
+    # Registration status
+    has_registration
+    # Select rules for DM_REG
+    & has_dm_reg_select_r2
+    # Select rules for DM021
+    & dm021_denominator
+)
 
 # Define measures
 measures = Measures()
 
 measures.define_measure(
     name="dm021",
-    numerator=has_dm021_select_r10,
-    denominator=has_dm_reg_select_r2,
+    numerator=dm021_numerator,
+    denominator=dm021_denominator,
     group_by={"sex": patients.sex},
     intervals=months(3).starting_on("2022-03-01"),
 )
