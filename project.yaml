@@ -7,40 +7,75 @@ actions:
 
 # Generate datasets
 ## DM017
-  generate_dataset_dm017:
+  test_dm017:
+    run: >
+      ehrql:v0 
+        generate-dataset analysis/dataset_definition_dm017.py
+        --dummy-tables dummy_data
+        --output output/datasets/dataset_dm017.csv
+    outputs:
+      moderately_sensitive:
+        cohort: output/datasets/dataset_dm017.csv
+
+  generate_measures_dm017:
     run: >
       ehrql:v0 
         generate-measures analysis/dataset_definition_dm017.py
         --dummy-tables dummy_data
-        --output output/measures/dataset_dm017.csv
+        --output output/measures/measures_dm017.csv
     outputs:
       moderately_sensitive:
-        cohort: output/measures/dataset_dm017.csv
+        cohort: output/measures/measures_dm017.csv
+
 
 ## DM020
-  generate_dataset_dm020:
+  test_dm020:
     run: >
       ehrql:v0 
-        generate-measures analysis/dataset_definition_dm020.py
+        generate-dataset analysis/dataset_definition_dm020.py
         --dummy-tables dummy_data
-        --output output/measures/dataset_dm020.csv
+        --output output/datasets/dataset_dm020.csv
         -- 
         --ifcchba-cutoff-val "58"
     outputs:
       moderately_sensitive:
-        cohort: output/measures/dataset_dm020.csv
+        cohort: output/datasets/dataset_dm020.csv
+  
+  generate_measures_dm020:
+    run: >
+      ehrql:v0 
+        generate-measures analysis/dataset_definition_dm020.py
+        --dummy-tables dummy_data
+        --output output/measures/measures_dm020.csv
+        -- 
+        --ifcchba-cutoff-val "58"
+    outputs:
+      moderately_sensitive:
+        cohort: output/measures/measures_dm020.csv
 
 
 ## DM021
-  generate_dataset_dm021:
+  test_dm021:
     run: >
       ehrql:v0 
-        generate-measures analysis/dataset_definition_dm021.py
+        generate-dataset analysis/dataset_definition_dm021.py
         --dummy-tables dummy_data
-        --output output/measures/dataset_dm021.csv
+        --output output/datasets/dataset_dm021.csv
         -- 
         --ifcchba-cutoff-val "75"
     outputs:
       moderately_sensitive:
-        cohort: output/measures/dataset_dm021.csv
+        cohort: output/datasets/dataset_dm021.csv
+  
+  generate_measures_dm021:
+    run: >
+      ehrql:v0 
+        generate-measures analysis/dataset_definition_dm021.py
+        --dummy-tables dummy_data
+        --output output/measures/measures_dm021.csv
+        -- 
+        --ifcchba-cutoff-val "75"
+    outputs:
+      moderately_sensitive:
+        cohort: output/measures/measures_dm021.csv
 
