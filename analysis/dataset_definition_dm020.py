@@ -85,5 +85,5 @@ measures.define_measure(
     numerator=dm020_numerator,
     denominator=dm020_denominator,
     group_by={"sex": patients.sex},
-    intervals=months(3).starting_on("2022-03-01"),
+    intervals=months(12).starting_on("2022-03-01"),
 )
