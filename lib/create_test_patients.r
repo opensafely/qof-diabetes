@@ -167,5 +167,5 @@ practice_registrations <- tibble::tribble(
            11, "2018-01-01",           NA,                   3,             3,          "region_practice3",
   )
 
-readr::write_csv(practice_registrations,here::here("dummy_data", "practice_registrations.csv"), na = "")
+readr::write_csv(practice_registrations, here::here("dummy_data", "practice_registrations.csv"), na = "")
 # nolint end

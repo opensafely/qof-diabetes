@@ -1,5 +1,7 @@
 from argparse import ArgumentParser
-from datetime import datetime
+
+from ehrql import INTERVAL, Measures, months
+from ehrql.tables.beta.tpp import patients
 
 from dm_dataset import (
     make_dm_dataset,
@@ -20,11 +22,11 @@ from dm_dataset import (
 
 # Define index date and cutoff value for clinical rules
 parser = ArgumentParser()
-parser.add_argument("--index-date", type=str)
 parser.add_argument("--ifcchba-cutoff-val", type=int)
 args = parser.parse_args()
-index_date = datetime.strptime(args.index_date, "%Y-%m-%d").date()
 ifcchba_cutoff_val = args.ifcchba_cutoff_val
+
+index_date = INTERVAL.start_date
 
 # Instantiate dataset and define clinical variables
 dataset = make_dm_dataset(index_date=index_date)
@@ -69,13 +71,19 @@ has_dm020_select_r10 = (
     & ~dataset.dm020_r10
 )
 
+# Define DM020 denominator and numerator
+# DM020 gets applied to DM_REG (has_dm_reg_select_r2)
+# The numerator is applied to the patients selected into the denominator for this indicator.
+dm020_numerator = has_dm020_select_r2
+dm020_denominator = has_dm_reg_select_r2 & (has_dm020_select_r2 | has_dm020_select_r10)
 
-# Apply business rules to define population
-dataset.define_population(
-    # Registration status
-    has_registration
-    # Business rules for DM_REG
-    & has_dm_reg_select_r2
-    # Business rules for DM020
-    & (has_dm020_select_r2 | has_dm020_select_r10)
+# Define measures
+measures = Measures()
+
+measures.define_measure(
+    name="dm020",
+    numerator=dm020_numerator,
+    denominator=dm020_denominator,
+    group_by={"sex": patients.sex},
+    intervals=months(12).starting_on("2022-03-01"),
 )
