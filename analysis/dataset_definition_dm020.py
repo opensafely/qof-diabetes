@@ -71,19 +71,11 @@ has_dm020_select_r10 = (
     & ~dataset.dm020_r10
 )
 
-# Define DM020 numerator and denominator
+# Define DM020 denominator and numerator
+# DM020 gets applied to DM_REG (has_dm_reg_select_r2)
+# The numerator is applied to the patients selected into the denominator for this indicator.
 dm020_numerator = has_dm020_select_r2
-dm020_denominator = (has_dm020_select_r2 | has_dm020_select_r10)
-
-# Define dataset variable with DM020 population
-dataset.dm020_population = (
-    # Registration status
-    has_registration
-    # Select rules for DM_REG
-    & has_dm_reg_select_r2
-    # Select rules for DM020
-    & dm020_denominator
-)
+dm020_denominator = has_dm_reg_select_r2 & (has_dm020_select_r2 | has_dm020_select_r10)
 
 # Define measures
 measures = Measures()

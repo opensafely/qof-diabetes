@@ -25,11 +25,8 @@ dataset.dm_reg_r2 = get_dm_reg_r2(dataset)
 has_dm_reg_select_r2 = dataset.dm_reg_r1 & ~dataset.dm_reg_r2
 
 # Define DM017 numerator and denominator
-dm017_numerator = has_registration
-dm017_denominator = has_dm_reg_select_r2
-
-# Define variable with DM register population
-dataset.dm_reg_population = has_registration & has_dm_reg_select_r2
+dm017_numerator = has_dm_reg_select_r2
+dm017_denominator = has_registration
 
 # Define measures
 measures = Measures()
