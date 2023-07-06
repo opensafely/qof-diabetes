@@ -72,18 +72,10 @@ has_dm021_select_r10 = (
 )
 
 # Define DM021 numerator and denominator
+# DM021 gets applied to DM_REG (has_dm_reg_select_r2)
+# The numerator is applied to the patients selected into the denominator
 dm021_numerator = has_dm021_select_r2
-dm021_denominator = (has_dm021_select_r2 | has_dm021_select_r10)
-
-# Define dataset variable with DM021 population
-dataset.dm021_population = (
-    # Registration status
-    has_registration
-    # Select rules for DM_REG
-    & has_dm_reg_select_r2
-    # Select rules for DM021
-    & dm021_denominator
-)
+dm021_denominator = has_dm_reg_select_r2 & (has_dm021_select_r2 | has_dm021_select_r10)
 
 # Define measures
 measures = Measures()
