@@ -1,3 +1,4 @@
+import sys
 from ehrql import INTERVAL, Measures, months
 from ehrql.tables.beta.tpp import patients
 
@@ -7,6 +8,9 @@ from dm_dataset import (
     get_dm_reg_r1,
     get_dm_reg_r2,
 )
+
+if len(sys.argv) > 2:
+    INTERVAL = INTERVAL.__class__(start_date=sys.argv[1], end_date=sys.argv[2])
 
 index_date = INTERVAL.start_date
 
@@ -27,6 +31,9 @@ has_dm_reg_select_r2 = dataset.dm_reg_r1 & ~dataset.dm_reg_r2
 # Define DM017 numerator and denominator
 dm017_numerator = has_dm_reg_select_r2
 dm017_denominator = has_registration
+
+if len(sys.argv) > 2:
+    dataset.define_population(dm017_denominator)
 
 # Define measures
 measures = Measures()
