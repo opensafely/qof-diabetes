@@ -1,4 +1,5 @@
 import sys
+from datetime import date
 from ehrql import INTERVAL, Measures, months
 from ehrql.tables.beta.tpp import patients
 
@@ -12,7 +13,7 @@ from dm_dataset import (
 if len(sys.argv) > 2:
     INTERVAL = INTERVAL.__class__(start_date=sys.argv[1], end_date=sys.argv[2])
 
-index_date = INTERVAL.start_date
+index_date = INTERVAL.end_date
 
 # Instantiate dataset and define clinical variables
 dataset = make_dm_dataset(index_date=index_date)
