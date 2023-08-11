@@ -26,6 +26,7 @@ patient_data = {
             },
         ],
         "clinical_events": [{}],
+        "expected_in_population": True,
         "expected_columns": {
             "reg_dat": date(2018, 1, 2),
             "dereg_dat": None,
@@ -35,9 +36,25 @@ patient_data = {
             "dmres_dat": None,
             "dm_reg_r1": None,
             "dm_reg_r2": False,
-            },
+        },
     },
+    # Correctly not expected in population
     2: {
+        "patients": [{"date_of_birth": date(2020, 1, 1)}],
+        "practice_registrations": [
+            {
+                "start_date": date(2010, 1, 1),
+                "end_date": date(2018, 1, 1),
+                "practice_pseudo_id": 1,
+                "practice_stp": 1,
+                "practice_nuts1_region_name": "region_practice1",
+            },
+        ],
+        "clinical_events": [{}],
+        "expected_in_population": False,
+    },
+    # Correctly expected in population
+    3: {
         "patients": [{"date_of_birth": date(1950, 1, 1)}],
         "practice_registrations": [
             {
@@ -65,6 +82,7 @@ patient_data = {
                 "snomedct_code": "315051004",
             },
         ],
+        "expected_in_population": True,
         "expected_columns": {
             "reg_dat": date(2019, 2, 1),
             "dereg_dat": None,
