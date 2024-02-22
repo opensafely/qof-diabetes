@@ -1,10 +1,10 @@
 from ehrql import (
-    Dataset,
+    create_dataset,
     years,
     months,
     days,
 )
-from ehrql.tables.beta.tpp import (
+from ehrql.tables.tpp import (
     clinical_events,
     patients,
     practice_registrations,
@@ -27,7 +27,7 @@ import codelists
 # Define a dataset including all variables needed for the diabetes mellitus (dm)
 def make_dm_dataset(index_date):
     # Instantiate dataset
-    dataset = Dataset()
+    dataset = create_dataset()
 
     # Extract prior events for further use in variable definitions below
     prior_events = clinical_events.where(

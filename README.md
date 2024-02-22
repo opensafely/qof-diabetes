@@ -36,7 +36,7 @@ For example, this secion of the [project.yaml](project.yaml) file specifies the 
 ```yaml
   generate_measures_dm020:
     run: >
-      ehrql:v0 
+      ehrql:v1 
         generate-measures analysis/dataset_definition_dm020.py
         --dummy-tables dummy_data
         --output output/measures/measures_dm020.csv
