@@ -7,7 +7,7 @@ actions:
 
   generate_measures_dm017:
     run: >
-      ehrql:v0 
+      ehrql:v1 
         generate-measures analysis/dataset_definition_dm017.py
         --dummy-tables dummy_data
         --output output/measures/measures_dm017.csv
@@ -17,7 +17,7 @@ actions:
   
   generate_measures_dm020:
     run: >
-      ehrql:v0 
+      ehrql:v1 
         generate-measures analysis/dataset_definition_dm020.py
         --dummy-tables dummy_data
         --output output/measures/measures_dm020.csv
@@ -29,7 +29,7 @@ actions:
   
   generate_measures_dm021:
     run: >
-      ehrql:v0 
+      ehrql:v1 
         generate-measures analysis/dataset_definition_dm021.py
         --dummy-tables dummy_data
         --output output/measures/measures_dm021.csv
