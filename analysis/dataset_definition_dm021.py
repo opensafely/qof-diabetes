@@ -26,7 +26,7 @@ parser.add_argument("--ifcchba-cutoff-val", type=int)
 args = parser.parse_args()
 ifcchba_cutoff_val = args.ifcchba_cutoff_val
 
-index_date = INTERVAL.start_date
+index_date = INTERVAL.end_date
 
 # Instantiate dataset and define clinical variables
 dataset = make_dm_dataset(index_date=index_date)
